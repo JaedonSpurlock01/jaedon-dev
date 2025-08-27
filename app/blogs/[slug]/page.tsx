@@ -1,10 +1,12 @@
 import { getSerializedPost, getAllPosts } from "@/lib/mdx";
 import StaggerContainer from "@/components/stagger-container";
-import MdxClient from "@/components/mdx/MDXClient";
 import { notFound } from "next/navigation";
 import { Clock } from "lucide-react";
 import { VideoText } from "@/components/magicui/video-text";
 import Comments from "@/components/comments";
+import { mdxComponents } from "@/components/mdx/MDXComponents";
+import { MDXRemote } from "next-mdx-remote/rsc";
+import { Suspense } from "react";
 
 export async function generateStaticParams() {
   const posts = getAllPosts();
@@ -24,7 +26,7 @@ export default async function BlogPost(props: {
 
   if (!post) return notFound();
 
-  const { mdxSource, frontmatter } = post;
+  const { content, frontmatter } = post;
 
   return (
     <StaggerContainer className="mt-10 mb-40 flex flex-col">
@@ -45,7 +47,10 @@ export default async function BlogPost(props: {
         </div>
 
         <hr className="my-8 border-blue-400/30" />
-        <MdxClient source={mdxSource} />
+
+        <Suspense fallback={<div>Loading...</div>}>
+          <MDXRemote source={content} components={mdxComponents} />
+        </Suspense>
       </article>
 
       <Comments />

@@ -8,23 +8,11 @@ import Title from "../title";
 const photos = [
   {
     src: "/personal/1.jpg",
-    desc: "Potato Chip Rock, Escondido",
+    desc: "Black's Beach, La Jolla",
   },
   {
     src: "/personal/2.png",
-    desc: "Black's Beach, Carlsbad",
-  },
-  {
-    src: "/personal/5.png",
-    desc: "Scout Mountain, Idaho",
-  },
-  {
-    src: "/personal/5.png",
-    desc: "Scout Mountain, Idaho",
-  },
-  {
-    src: "/personal/5.png",
-    desc: "Scout Mountain, Idaho",
+    desc: "Potato Chip Rock, Escondido",
   },
   {
     src: "/personal/5.png",

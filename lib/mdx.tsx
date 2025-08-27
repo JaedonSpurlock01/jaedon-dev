@@ -1,12 +1,6 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
-import { serialize } from "next-mdx-remote/serialize";
-
-import gfm from "remark-gfm";
-import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import rehypePrettyCode from "rehype-pretty-code";
 
 const POSTS_DIR = path.join(process.cwd(), "content", "blog");
 
@@ -81,30 +75,7 @@ export async function getSerializedPost(slug: string) {
     const { content, data } = matter(source);
     const fm = data as PostFrontmatter;
 
-    // Plugins: GitHub-flavored MD, heading ids + anchor links, and nice code blocks
-    const remarkPlugins = [gfm];
-    const rehypePlugins = [
-      rehypeSlug,
-      [
-        rehypeAutolinkHeadings,
-        { behavior: "wrap", properties: { className: ["heading-anchor"] } },
-      ],
-      [
-        rehypePrettyCode,
-        {
-          theme: "github-dark",
-          keepBackground: false,
-        },
-      ],
-    ];
-
-    const mdxSource = await serialize(content, {
-      // @ts-expect-error Ignore
-      mdxOptions: { remarkPlugins, rehypePlugins, format: "mdx" },
-      parseFrontmatter: false,
-    });
-
-    return { mdxSource, frontmatter: fm };
+    return { content, frontmatter: fm };
   } catch (error) {
     console.error(error);
     return null;
