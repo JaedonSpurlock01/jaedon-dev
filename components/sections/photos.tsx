@@ -83,7 +83,7 @@ const PhotoCard = ({ src, desc }: PhotoProps) => {
           height={400}
           className="w-full aspect-square object-cover pointer-events-none"
         />
-        <p className="italic text-center text-sm mt-2 font-medium text-primary/80">
+        <p className="italic text-center text-sm mt-2 font-medium text-neutral-800/80">
           {desc}
         </p>
       </motion.div>

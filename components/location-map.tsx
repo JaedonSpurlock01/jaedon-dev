@@ -79,7 +79,7 @@ export const LocationMap = () => {
         </Map>
       </div>
 
-      <div className="bg-background border border-border py-1 px-3 rounded-sm absolute top-4 right-4 flex items-center gap-2 text-muted-foreground text-sm">
+      <div className="font-mono bg-background border border-border py-1 px-3 rounded-sm absolute top-4 right-4 flex items-center gap-2 text-muted-foreground text-xs">
         <Clock size={16} /> {currentTime}
       </div>
     </div>

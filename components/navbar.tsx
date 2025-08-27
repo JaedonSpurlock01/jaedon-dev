@@ -24,8 +24,8 @@ export const Navbar = () => {
       icon: <PiGithubLogo className="size-5" />,
     },
     {
-      href: "/blog",
-      label: "Blog",
+      href: "/blogs",
+      label: "Blogs",
       icon: <BsJournals className="size-5" />,
     },
   ];
@@ -46,6 +46,7 @@ export const Navbar = () => {
               href={item.href}
               label={item.label}
               icon={item.icon}
+              target={item.href === "/blogs" ? "_self" : "_blank"}
             />
           ))}
           <div className="w-px h-8 bg-border mx-2" />
@@ -60,15 +61,17 @@ const NavItem = ({
   href,
   label,
   icon,
+  target = "_blank",
 }: {
   href: string;
   label: string;
   icon: React.ReactNode;
+  target?: string;
 }) => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Link href={href} target="_blank">
+        <Link href={href} target={target}>
           <Button
             variant="ghost"
             size="icon"

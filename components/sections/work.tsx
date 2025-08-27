@@ -124,7 +124,7 @@ const WorkAccordionItem = ({
             <div className="flex items-center">
               <p className="text-sm text-primary/80">{company}</p>
               <Dot className="text-muted-foreground" />
-              <p className="text-sm text-muted-foreground">{date}</p>
+              <p className="text-sm text-muted-foreground font-mono">{date}</p>
             </div>
           </div>
         </div>
