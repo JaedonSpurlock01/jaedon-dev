@@ -4,7 +4,6 @@ import Location from "@/components/sections/location";
 import Photos from "@/components/sections/photos";
 import Projects from "@/components/sections/projects";
 import Work from "@/components/sections/work";
-import Blog from "@/components/sections/blog";
 import StaggerContainer from "@/components/stagger-container";
 
 export default function Home() {
@@ -17,9 +16,7 @@ export default function Home() {
       <Work />
       <Projects />
       <Location />
-      {/* <Blog /> */}
       <Contact />
-
       <Photos />
     </StaggerContainer>
   );

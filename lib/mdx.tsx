@@ -76,31 +76,37 @@ export function getAllPosts(): PostListItem[] {
 }
 
 export async function getSerializedPost(slug: string) {
-  const { source } = readFile(slug);
-  const { content, data } = matter(source);
-  const fm = data as PostFrontmatter;
+  try {
+    const { source } = readFile(slug);
+    const { content, data } = matter(source);
+    const fm = data as PostFrontmatter;
 
-  // Plugins: GitHub-flavored MD, heading ids + anchor links, and nice code blocks
-  const remarkPlugins = [gfm];
-  const rehypePlugins = [
-    rehypeSlug,
-    [
-      rehypeAutolinkHeadings,
-      { behavior: "wrap", properties: { className: ["heading-anchor"] } },
-    ],
-    [
-      rehypePrettyCode,
-      {
-        theme: "github-dark",
-        keepBackground: false,
-      },
-    ],
-  ];
+    // Plugins: GitHub-flavored MD, heading ids + anchor links, and nice code blocks
+    const remarkPlugins = [gfm];
+    const rehypePlugins = [
+      rehypeSlug,
+      [
+        rehypeAutolinkHeadings,
+        { behavior: "wrap", properties: { className: ["heading-anchor"] } },
+      ],
+      [
+        rehypePrettyCode,
+        {
+          theme: "github-dark",
+          keepBackground: false,
+        },
+      ],
+    ];
 
-  const mdxSource = await serialize(content, {
-    mdxOptions: { remarkPlugins, rehypePlugins, format: "mdx" },
-    parseFrontmatter: false,
-  });
+    const mdxSource = await serialize(content, {
+      // @ts-expect-error Ignore
+      mdxOptions: { remarkPlugins, rehypePlugins, format: "mdx" },
+      parseFrontmatter: false,
+    });
 
-  return { mdxSource, frontmatter: fm };
+    return { mdxSource, frontmatter: fm };
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }

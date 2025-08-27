@@ -5,7 +5,7 @@ import Title from "@/components/title";
 
 export const runtime = "nodejs";
 
-export default function Blogs() {
+export default async function Blogs() {
   const posts = getAllPosts();
 
   return (
@@ -33,7 +33,9 @@ export default function Blogs() {
                       </span>
                     ))}
                   </div>
-                ) : null}
+                ) : (
+                  <div></div>
+                )}
               </div>
               <p className="text-sm text-gray-500 font-mono">
                 {new Date(p.date).toLocaleDateString()} • {p.reading_time}

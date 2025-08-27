@@ -4,38 +4,27 @@ import MdxClient from "@/components/mdx/MDXClient";
 import { notFound } from "next/navigation";
 import { Clock } from "lucide-react";
 import { VideoText } from "@/components/magicui/video-text";
-import Giscus from "@giscus/react";
 import Comments from "@/components/comments";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const { frontmatter } = await getSerializedPost(params.slug);
-  return {
-    title: frontmatter.title,
-    description: frontmatter.description,
-    openGraph: {
-      title: frontmatter.title,
-      description: frontmatter.description,
-    },
-  };
-}
-
 export async function generateStaticParams() {
-  return getAllPosts().map((p) => ({ slug: p.slug }));
+  const posts = getAllPosts();
+  return posts.map((p) => ({ slug: p.slug }));
 }
 
-export default async function BlogPost({
-  params,
-}: {
-  params: { slug: string };
+export default async function BlogPost(props: {
+  params: Promise<{ slug: string }>;
 }) {
-  const slugs = new Set(getAllPosts().map((p) => p.slug));
-  if (!slugs.has(params.slug)) return notFound();
+  const params = await props.params;
+  const { slug } = params;
 
-  const { mdxSource, frontmatter } = await getSerializedPost(params.slug);
+  const slugs = new Set(getAllPosts().map((p) => p.slug));
+  if (!slugs.has(slug)) return notFound();
+
+  const post = await getSerializedPost(params.slug);
+
+  if (!post) return notFound();
+
+  const { mdxSource, frontmatter } = post;
 
   return (
     <StaggerContainer className="mt-10 mb-40 flex flex-col">

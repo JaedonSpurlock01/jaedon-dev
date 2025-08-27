@@ -128,6 +128,7 @@ const ProjectCard = ({ project, setActive, id }: ProjectProps) => {
           alt={project.title}
           width={1000}
           height={1000}
+          unoptimized={project.imageSrc.endsWith(".gif")}
           className="w-full rounded-lg aspect-square object-cover"
         />
       </motion.div>
